@@ -84,7 +84,7 @@ policies = [
     name = "rds-authenticate"
     path = "/assume/"
     desc = "Allow user to authenticate to RDS via IAM"
-    file = "data/policies/rds-authenticate.json.tmpl"
+    file = "data/policies/rds-authenticate.json.tftpl"
     vars = {
       aws_account_id = "1234567890",
     }
@@ -94,7 +94,7 @@ policies = [
 
 Terraform will automatically substitute the `aws_account_id` variable below with the corresponding value.
 
-`data/policies/rds-authenticate.json.tmpl`
+`data/policies/rds-authenticate.json.tftpl`
 ```json
 {
   "Version": "2012-10-17",
@@ -190,7 +190,7 @@ No resources.
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| <a name="input_policies"></a> [policies](#input\_policies) | A list of dictionaries defining all policies. | <pre>list(object({<br>    name = string                    # Name of the policy<br>    path = optional(string)          # Defaults to 'var.policy_path' if variable is set to null<br>    desc = optional(string)          # Defaults to 'var.policy_desc' if variable is set to null<br>    file = string                    # Path to json or json.tmpl file of policy<br>    vars = optional(map(string), {}) # Policy template variables {key = val, ...}<br>  }))</pre> | `[]` | no |
+| <a name="input_policies"></a> [policies](#input\_policies) | A list of dictionaries defining all policies. | <pre>list(object({<br>    name = string                    # Name of the policy<br>    path = optional(string)          # Defaults to 'var.policy_path' if variable is set to null<br>    desc = optional(string)          # Defaults to 'var.policy_desc' if variable is set to null<br>    file = string                    # Path to json or json.tftpl file of policy<br>    vars = optional(map(string), {}) # Policy template variables {key = val, ...}<br>  }))</pre> | `[]` | no |
 
 ## Outputs
 

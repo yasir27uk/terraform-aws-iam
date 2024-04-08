@@ -39,7 +39,7 @@ groups = [
       },
       {
         name = "inline-policy-2"
-        file = "data/policies/sqs-ro.json.tmpl"
+        file = "data/policies/sqs-ro.json.tftpl"
         vars = {  # You can use variables inside JSON files
           var1 = "Some value",
           var2 = "Another value",
@@ -89,8 +89,8 @@ No resources.
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| <a name="input_policies"></a> [policies](#input\_policies) | A list of dictionaries defining all policies. | <pre>list(object({<br>    name = string                    # Name of the policy<br>    path = optional(string)          # Defaults to 'var.policy_path' if variable is set to null<br>    desc = optional(string)          # Defaults to 'var.policy_desc' if variable is set to null<br>    file = string                    # Path to json or json.tmpl file of policy<br>    vars = optional(map(string), {}) # Policy template variables {key = val, ...}<br>  }))</pre> | `[]` | no |
-| <a name="input_groups"></a> [groups](#input\_groups) | A list of dictionaries defining all groups. | <pre>list(object({<br>    name        = string                     # Name of the group<br>    path        = optional(string)           # Defaults to 'var.group_path' if variable is set to null<br>    policies    = optional(list(string), []) # List of names of policies (must be defined in var.policies)<br>    policy_arns = optional(list(string), []) # List of existing policy ARN's<br>    inline_policies = optional(list(object({<br>      name = string                    # Name of the inline policy<br>      file = string                    # Path to json or json.tmpl file of policy<br>      vars = optional(map(string), {}) # Policy template variables {key = val, ...}<br>    })), [])<br>  }))</pre> | `[]` | no |
+| <a name="input_policies"></a> [policies](#input\_policies) | A list of dictionaries defining all policies. | <pre>list(object({<br>    name = string                    # Name of the policy<br>    path = optional(string)          # Defaults to 'var.policy_path' if variable is set to null<br>    desc = optional(string)          # Defaults to 'var.policy_desc' if variable is set to null<br>    file = string                    # Path to json or json.tftpl file of policy<br>    vars = optional(map(string), {}) # Policy template variables {key = val, ...}<br>  }))</pre> | `[]` | no |
+| <a name="input_groups"></a> [groups](#input\_groups) | A list of dictionaries defining all groups. | <pre>list(object({<br>    name        = string                     # Name of the group<br>    path        = optional(string)           # Defaults to 'var.group_path' if variable is set to null<br>    policies    = optional(list(string), []) # List of names of policies (must be defined in var.policies)<br>    policy_arns = optional(list(string), []) # List of existing policy ARN's<br>    inline_policies = optional(list(object({<br>      name = string                    # Name of the inline policy<br>      file = string                    # Path to json or json.tftpl file of policy<br>      vars = optional(map(string), {}) # Policy template variables {key = val, ...}<br>    })), [])<br>  }))</pre> | `[]` | no |
 
 ## Outputs
 

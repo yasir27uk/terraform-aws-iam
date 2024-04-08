@@ -596,7 +596,7 @@ list(object({
     name = string                    # Name of the policy
     path = optional(string)          # Defaults to 'var.policy_path' if variable is set to null
     desc = optional(string)          # Defaults to 'var.policy_desc' if variable is set to null
-    file = string                    # Path to json or json.tmpl file of policy
+    file = string                    # Path to json or json.tftpl file of policy
     vars = optional(map(string), {}) # Policy template variables {key = val, ...}
   }))
 ```
@@ -617,7 +617,7 @@ list(object({
     policy_arns = optional(list(string), []) # List of existing policy ARN's
     inline_policies = optional(list(object({
       name = string                    # Name of the inline policy
-      file = string                    # Path to json or json.tmpl file of policy
+      file = string                    # Path to json or json.tftpl file of policy
       vars = optional(map(string), {}) # Policy template variables {key = val, ...}
     })), [])
   }))
@@ -646,7 +646,7 @@ list(object({
     policy_arns          = optional(list(string), []) # List of existing policy ARN's
     inline_policies = optional(list(object({
       name = string                    # Name of the inline policy
-      file = string                    # Path to json or json.tmpl file of policy
+      file = string                    # Path to json or json.tftpl file of policy
       vars = optional(map(string), {}) # Policy template variables {key = val, ...}
     })), [])
   }))
@@ -662,18 +662,22 @@ Type:
 
 ```hcl
 list(object({
-    name                 = string                     # Name of the role
-    instance_profile     = optional(string)           # Name of the instance profile
-    path                 = optional(string)           # Defaults to 'var.role_path' if variable is set to null
-    desc                 = optional(string)           # Defaults to 'var.role_desc' if variable is set to null
-    trust_policy_file    = string                     # Path to file of trust/assume policy. Will be templated if vars are passed.
-    trust_policy_vars    = optional(map(string), {})  # Policy template variables {key = val, ...}
-    permissions_boundary = optional(string)           # ARN to a policy used as permissions boundary (or null/empty)
-    policies             = optional(list(string), []) # List of names of policies (must be defined in var.policies)
-    policy_arns          = optional(list(string), []) # List of existing policy ARN's
+    name                 = string                    # Name of the role
+    instance_profile     = optional(string)          # Name of the instance profile
+    path                 = optional(string)          # Defaults to 'var.role_path' if variable is set to null
+    desc                 = optional(string)          # Defaults to 'var.role_desc' if variable is set to null
+    trust_policy_file    = string                    # Path to file of trust/assume policy. Will be templated if vars are passed.
+    trust_policy_vars    = optional(map(string), {}) # Policy template variables {key = val, ...}
+    permissions_boundary = optional(string)          # ARN to a policy used as permissions boundary (or null/empty)
+    permission_boundary_policies = optional(list(object({
+      file = string                    # Path to json or json.tftpl file of policy
+      vars = optional(map(string), {}) # Policy template variables {key = val, ...}
+    })), [])
+    policies    = optional(list(string), []) # List of names of policies (must be defined in var.policies)
+    policy_arns = optional(list(string), []) # List of existing policy ARN's
     inline_policies = optional(list(object({
       name = string                    # Name of the inline policy
-      file = string                    # Path to json or json.tmpl file of policy
+      file = string                    # Path to json or json.tftpl file of policy
       vars = optional(map(string), {}) # Policy template variables {key = val, ...}
     })), [])
   }))
@@ -716,6 +720,14 @@ Default: `"/"`
 ### <a name="input_role_path"></a> [role\_path](#input\_role\_path)
 
 Description: The path under which to create the role. You can use a single path, or nest multiple paths as if they were a folder structure. For example, you could use the nested path /division\_abc/subdivision\_xyz/product\_1234/engineering/ to match your company's organizational structure.
+
+Type: `string`
+
+Default: `"/"`
+
+### <a name="input_role_perm_bound_policy_path"></a> [role\_perm\_bound\_policy\_path](#input\_role\_perm\_bound\_policy\_path)
+
+Description: The path under which to create the permission boundary. You can use a single path, or nest multiple paths as if they were a folder structure. For example, you could use the nested path /division\_abc/subdivision\_xyz/product\_1234/engineering/ to match your company's organizational structure.
 
 Type: `string`
 

@@ -118,7 +118,21 @@ resource "aws_iam_group_policy" "inline_policy_attachments" {
   depends_on = [aws_iam_group.groups]
 }
 
+resource "aws_iam_policy" "role_boundary_policies" {
+  for_each = { for role in local.merged_bp : role.name => role }
 
+  name        = "BOUNDARY-${each.value.name}"
+  path        = var.role_perm_bound_policy_path
+  description = "Policy for role ${each.value.name}"
+  policy      = <<-EOT
+{
+  "Version": "2012-10-17",
+  "Statement": [
+  ${each.value.content}
+  ]
+}
+EOT
+}
 
 # -------------------------------------------------------------------------------------------------
 # 5. Users
@@ -231,7 +245,7 @@ resource "aws_iam_role" "roles" {
 
   # The boundary defines the maximum allowed permissions which cannot exceed.
   # Even if the policy has higher permission, the boundary sets the final limit
-  permissions_boundary = each.value.permissions_boundary
+  permissions_boundary = contains(keys(aws_iam_policy.role_boundary_policies), each.value.name) ? aws_iam_policy.role_boundary_policies["${each.value.name}"].arn : each.value.permissions_boundary
 
   # Allow session for X seconds
   max_session_duration  = var.role_max_session_duration
