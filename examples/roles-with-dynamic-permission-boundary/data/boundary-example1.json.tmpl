@@ -1,0 +1,61 @@
+    {
+      "Sid": "CreateOrChangeOnlyWithBoundary",
+      "Effect": "Allow",
+      "Action": [
+        "iam:AttachUserPolicy",
+        "iam:CreateUser",
+        "iam:DeleteUserPolicy",
+        "iam:DetachUserPolicy",
+        "iam:PutUserPermissionsBoundary",
+        "iam:PutUserPolicy"
+      ],
+      "Resource": "*",
+      "Condition": {
+        "StringEquals": {
+          "iam:PermissionsBoundary": "arn:aws:iam::123456789012:policy/perm-boundaries/*"
+        }
+      }
+    },
+    {
+      "Sid": "NoBoundaryPolicyEdit",
+      "Effect": "Deny",
+      "Action": [
+        "iam:CreatePolicyVersion",
+        "iam:DeletePolicy",
+        "iam:DeletePolicyVersion",
+        "iam:SetDefaultPolicyVersion"
+      ],
+      "Resource": [
+        "arn:aws:iam::${aws_account_id}:policy/perm-boundaries/*"
+      ]
+    },
+    {
+      "Sid": "NoBoundaryUserDelete",
+      "Effect": "Deny",
+      "Action": "iam:DeleteUserPermissionsBoundary",
+      "Resource": "*"
+    },
+    {
+      "Sid": "DenyIAMPolicySelf",
+      "Effect": "Deny",
+      "Action": [
+        "iam:Update*",
+        "iam:Set*",
+        "iam:Resync*",
+        "iam:Reset*",
+        "iam:Remove*",
+        "iam:Put*",
+        "iam:Pass*",
+        "iam:Enable*",
+        "iam:Detach*",
+        "iam:Delete*",
+        "iam:Deactivate*",
+        "iam:Create*",
+        "iam:Attach*",
+        "iam:Add*"
+      ],
+      "Resource": [
+        "arn:aws:iam::*:policy/perm-boundaries/*",
+        "arn:aws:iam::*:policy/*"
+      ]
+    }

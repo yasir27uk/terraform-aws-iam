@@ -251,6 +251,20 @@ locals {
   role_inline_policies = { for obj in local.rip : "${obj.role_name}:${obj.policy_name}" => obj.policy }
 }
 
+locals {
+
+  merged_bp = [
+    for role in var.roles :
+    {
+      name = role.name
+      content = join(",", [
+        for policy in role.permission_boundary_policies :
+        templatefile(policy.file, merge(policy.vars, { role_name = role.name }))
+      ])
+    } if length(role.permission_boundary_policies) > 0
+  ]
+
+}
 
 # -------------------------------------------------------------------------------------------------
 # Group/User/Role Policy Arn transformations
