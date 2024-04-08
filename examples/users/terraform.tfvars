@@ -40,7 +40,7 @@ users = [
     inline_policies = [
       {
         name = "rds-authenticate"
-        file = "data/rds-authenticate.json.tmpl"
+        file = "data/rds-authenticate.json.tftpl"
         vars = {
           aws_account_id = "1234567890"
         }
@@ -61,7 +61,7 @@ users = [
     inline_policies = [
       {
         name = "rds-authenticate"
-        file = "data/rds-authenticate.json.tmpl"
+        file = "data/rds-authenticate.json.tftpl"
         vars = {
           aws_account_id = "1234567890"
         }

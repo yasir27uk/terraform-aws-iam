@@ -1,6 +1,13 @@
-# Deny Terraform runtime files
-.terraform
-terraform.tfstate
-*.tfstate*
+#  Local .terraform directories
+**/.terraform/*
+
+# .tfstate files
+*.tfstate
+*.tfstate.*
+
+# exclude .tfvars except for examples
+*.tfvars
+!examples/*/*.tfvars
+
+# lock file
 .terraform.lock.hcl
-/terraform.tfvars

@@ -1,0 +1,9 @@
+    {
+      "Sid": "DenyS3Logs",
+      "Effect": "Deny",
+      "Action": "s3:*",
+      "Resource": [
+        "arn:aws:s3:::logs",
+        "arn:aws:s3:::logs/*"
+      ]
+    }
