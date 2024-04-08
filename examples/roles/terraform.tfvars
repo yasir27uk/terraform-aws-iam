@@ -15,7 +15,7 @@ roles = [
   },
   {
     name              = "ROLE-POLICY-ARN"
-    trust_policy_file = "data/trust-policy-template.json.tmpl"
+    trust_policy_file = "data/trust-policy-template.json.tftpl"
     trust_policy_vars = {
       aws_account_id = "123456789012"
     }
@@ -34,7 +34,7 @@ roles = [
     inline_policies = [
       {
         name = "rds-authenticate"
-        file = "data/rds-authenticate.json.tmpl"
+        file = "data/rds-authenticate.json.tftpl"
         vars = {
           aws_account_id = "1234567890"
         }
@@ -51,7 +51,7 @@ roles = [
     inline_policies = [
       {
         name = "rds-authenticate"
-        file = "data/rds-authenticate.json.tmpl"
+        file = "data/rds-authenticate.json.tftpl"
         vars = {
           aws_account_id = "1234567890"
         }

@@ -9,7 +9,7 @@ policies = [
     name = "rds-authenticate"
     path = "/assume/"
     desc = "Allow user to authenticate to RDS via IAM"
-    file = "data/rds-authenticate.json.tmpl"
+    file = "data/rds-authenticate.json.tftpl"
     vars = {
       aws_account_id = "1234567890",
     }
