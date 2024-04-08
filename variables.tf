@@ -262,6 +262,12 @@ variable "roles" {
     })), [])
   }))
   default = []
+  validation {
+    condition = length(var.roles) > 0 ? alltrue([
+      for role in var.roles : !(role.permissions_boundary != null && length(role.permission_boundary_policies) > 0)
+    ]) : true
+    error_message = "Either permission_boundary or permission_boundary_policies value should be set, but not both."
+  }
 }
 
 

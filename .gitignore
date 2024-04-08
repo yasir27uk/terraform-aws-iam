@@ -5,8 +5,9 @@
 *.tfstate
 *.tfstate.*
 
-# .tfvars files
+# exclude .tfvars except for examples
 *.tfvars
+!examples/*/*.tfvars
 
 # lock file
 .terraform.lock.hcl
